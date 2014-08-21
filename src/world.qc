@@ -2,7 +2,7 @@
 void() InitBodyQue;
 
 
-void() main=
+void() main =
 {
 	dprint ("main function\n");
 	
@@ -155,7 +155,7 @@ void() main=
 };
 
 
-entity lastspawn;
+entity	lastspawn;
 
 //=======================
 /*QUAKED worldspawn (0 0 0) ?
@@ -168,9 +168,8 @@ World Types:
 1: metal
 2: base
 */
-
 //=======================
-void() worldspawn=
+void() worldspawn =
 {
 	lastspawn = world;
 	InitBodyQue ();
@@ -336,7 +335,7 @@ void() worldspawn=
 	lightstyle(63, "a");
 };
 
-void() StartFrame=
+void() StartFrame =
 {
 	teamplay = cvar("teamplay");
 	skill = cvar("skill");
@@ -351,15 +350,14 @@ BODY QUE
 ==============================================================================
 */
 
+entity	bodyque_head;
 
-entity bodyque_head;
-
-void() bodyque=
+void() bodyque =
 {	// just here so spawn functions don't complain after the world
 	// creates bodyques
 };
 
-void() InitBodyQue=
+void() InitBodyQue =
 {
 	local entity	e;
 	
@@ -377,7 +375,7 @@ void() InitBodyQue=
 
 // make a body que entry for the given ent so the ent can be
 // respawned elsewhere
-void(entity ent) CopyToBodyQue=
+void(entity ent) CopyToBodyQue =
 {
 	bodyque_head.angles = ent.angles;
 	bodyque_head.model = ent.model;

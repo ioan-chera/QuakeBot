@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="QuakeBot" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="bin/Debug/QuakeBot" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Debug/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+				</Compiler>
+			</Target>
+			<Target title="Release">
+				<Option output="bin/Release/QuakeBot" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Release/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O2" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+		</Compiler>
+		<Unit filename="src/ai.qc" />
+		<Unit filename="src/boss.qc" />
+		<Unit filename="src/bot.qc" />
+		<Unit filename="src/buttons.qc" />
+		<Unit filename="src/client.qc" />
+		<Unit filename="src/combat.qc" />
+		<Unit filename="src/defs.qc" />
+		<Unit filename="src/demon.qc" />
+		<Unit filename="src/dog.qc" />
+		<Unit filename="src/doors.qc" />
+		<Unit filename="src/enforcer.qc" />
+		<Unit filename="src/fight.qc" />
+		<Unit filename="src/fish.qc" />
+		<Unit filename="src/hknight.qc" />
+		<Unit filename="src/items.qc" />
+		<Unit filename="src/knight.qc" />
+		<Unit filename="src/misc.qc" />
+		<Unit filename="src/monsters.qc" />
+		<Unit filename="src/ogre.qc" />
+		<Unit filename="src/oldone.qc" />
+		<Unit filename="src/plats.qc" />
+		<Unit filename="src/player.qc" />
+		<Unit filename="src/shalrath.qc" />
+		<Unit filename="src/shambler.qc" />
+		<Unit filename="src/soldier.qc" />
+		<Unit filename="src/subs.qc" />
+		<Unit filename="src/tarbaby.qc" />
+		<Unit filename="src/triggers.qc" />
+		<Unit filename="src/weapons.qc" />
+		<Unit filename="src/wizard.qc" />
+		<Unit filename="src/world.qc" />
+		<Unit filename="src/zombie.qc" />
+		<Extensions>
+			<DoxyBlocks>
+				<comment_style block="0" line="0" />
+				<doxyfile_project />
+				<doxyfile_build />
+				<doxyfile_warnings />
+				<doxyfile_output />
+				<doxyfile_dot />
+				<general />
+			</DoxyBlocks>
+			<code_completion />
+			<envvars />
+			<debugger />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

@@ -15,8 +15,7 @@ Returns true if the inflictor can directly damage the target.  Used for
 explosions and melee attacks.
 ============
 */
-
-float(entity targ, entity inflictor) CanDamage=
+float(entity targ, entity inflictor) CanDamage =
 {
 // bmodels need special checking because their origin is 0,0,0
 	if (targ.movetype == MOVETYPE_PUSH)
@@ -54,8 +53,7 @@ float(entity targ, entity inflictor) CanDamage=
 Killed
 ============
 */
-
-void(entity targ, entity attacker) Killed=
+void(entity targ, entity attacker) Killed =
 {
 	local entity oself;
 
@@ -101,7 +99,6 @@ The damage is coming from inflictor, but get mad at attacker
 This should be the only function that ever reduces health.
 ============
 */
-
 void(entity targ, entity inflictor, entity attacker, float damage) T_Damage=
 {
 	local	vector	dir;
@@ -164,7 +161,11 @@ void(entity targ, entity inflictor, entity attacker, float damage) T_Damage=
 	}
 
 // team play damage avoidance
-	if ( (teamplay == 1) && (targ.team > 0)&&(targ.team == attacker.team) )
+//	if ( (teamplay == 1) && (targ.team > 0)&&(targ.team == attacker.team) )
+	if ( (teamplay == 1) && (targ.team > 0) && (targ.team == attacker.team)
+	&& (targ != attacker) 			
+	&& (attacker.classname == "player")
+	&& (inflictor.classname != "door") )	// because squishing a teammate is still possible
 		return;
 		
 // do the damage
@@ -212,8 +213,7 @@ void(entity targ, entity inflictor, entity attacker, float damage) T_Damage=
 T_RadiusDamage
 ============
 */
-
-void(entity inflictor, entity attacker, float damage, entity ignore) T_RadiusDamage=
+void(entity inflictor, entity attacker, float damage, entity ignore) T_RadiusDamage =
 {
 	local	float 	points;
 	local	entity	head;
@@ -255,8 +255,7 @@ void(entity inflictor, entity attacker, float damage, entity ignore) T_RadiusDam
 T_BeamDamage
 ============
 */
-
-void(entity attacker, float damage) T_BeamDamage=
+void(entity attacker, float damage) T_BeamDamage =
 {
 	local	float 	points;
 	local	entity	head;

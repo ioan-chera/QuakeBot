@@ -8,7 +8,6 @@ When it decides it can't attack, it goes into hunt mode.
 
 */
 
-
 float(float v) anglemod;
 
 void() knight_atk1;
@@ -20,8 +19,8 @@ void() sham_smash1;
 void() sham_swingr1;
 void() sham_swingl1;
 
-float() DemonCheckAttack;
-void(float side) Demon_Melee;
+float()	DemonCheckAttack;
+void(float side)	Demon_Melee;
 
 void(vector dest) ChooseTurn;
 
@@ -29,10 +28,10 @@ void() ai_face;
 
 
 float	enemy_vis, enemy_infront, enemy_range;
-float enemy_yaw;
+float	enemy_yaw;
 
 
-void() knight_attack=
+void() knight_attack =
 {
 	local float		len;
 	
@@ -55,8 +54,7 @@ The player is in view, so decide to move or launch an attack
 Returns FALSE if movement should continue
 ============
 */
-
-float() CheckAttack=
+float() CheckAttack =
 {
 	local vector	spot1, spot2;	
 	local entity	targ;
@@ -138,8 +136,7 @@ ai_face
 Stay facing the enemy
 =============
 */
-
-void() ai_face=
+void() ai_face =
 {
 	self.ideal_yaw = vectoyaw(self.enemy.origin - self.origin);
 	ChangeYaw ();
@@ -152,18 +149,17 @@ ai_charge
 The monster is in a melee attack, so get as close as possible to .enemy
 =============
 */
-
 float (entity targ) visible;
 float(entity targ) infront;
 float(entity targ) range;
 
-void(float d) ai_charge=
+void(float d) ai_charge =
 {
 	ai_face ();	
 	movetogoal (d);		// done in C code...
 };
 
-void() ai_charge_side=
+void() ai_charge_side =
 {
 	local	vector	dtemp;
 	local	float	heading;
@@ -187,8 +183,7 @@ ai_melee
 
 =============
 */
-
-void() ai_melee=
+void() ai_melee =
 {
 	local vector	delta;
 	local float 	ldmg;
@@ -206,7 +201,7 @@ void() ai_melee=
 };
 
 
-void() ai_melee_side=
+void() ai_melee_side =
 {
 	local vector	delta;
 	local float 	ldmg;
@@ -237,8 +232,7 @@ The player is in view, so decide to move or launch an attack
 Returns FALSE if movement should continue
 ============
 */
-
-float() SoldierCheckAttack=
+float() SoldierCheckAttack =
 {
 	local vector	spot1, spot2;	
 	local entity	targ;
@@ -297,13 +291,12 @@ The player is in view, so decide to move or launch an attack
 Returns FALSE if movement should continue
 ============
 */
-
-float() ShamCheckAttack=
+float() ShamCheckAttack =
 {
 	local vector	spot1, spot2;	
 	local entity	targ;
 	local float		chance;
-	local float		enemy_yaw;
+//	local float		enemy_yaw;
 
 	if (enemy_range == RANGE_MELEE)
 	{
@@ -358,8 +351,7 @@ The player is in view, so decide to move or launch an attack
 Returns FALSE if movement should continue
 ============
 */
-
-float() OgreCheckAttack=
+float() OgreCheckAttack =
 {
 	local vector	spot1, spot2;	
 	local entity	targ;

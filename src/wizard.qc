@@ -6,8 +6,7 @@ WIZARD
 ==============================================================================
 */
 
-
-$cd /raid/quake/id1/models/a_wizard
+$cd id1/models/a_wizard
 $origin 0 0 24
 $base wizbase	
 $skin wizbase
@@ -36,7 +35,6 @@ will duck back out and catch it.
 ==============================================================================
 */
 
-
 /*
 =============
 LaunchMissile
@@ -46,8 +44,7 @@ if self.enemy maintains it's current velocity
 0.1 is moderately accurate, 0.0 is totally accurate
 =============
 */
-
-void(entity missile, float mspeed, float accuracy) LaunchMissile=
+void(entity missile, float mspeed, float accuracy) LaunchMissile =
 {
 	local	vector	vec, move;
 	local	float	fly;
@@ -89,8 +86,7 @@ void() wiz_side1;
 WizardCheckAttack
 =================
 */
-
-float() WizardCheckAttack=
+float()	WizardCheckAttack =
 {
 	local vector	spot1, spot2;	
 	local entity	targ;
@@ -169,8 +165,7 @@ float() WizardCheckAttack=
 WizardAttackFinished
 =================
 */
-
-float() WizardAttackFinished=
+void()	WizardAttackFinished =
 {
 	if (enemy_range >= RANGE_MID || !enemy_vis)
 	{
@@ -192,8 +187,7 @@ FAST ATTACKS
 ==============================================================================
 */
 
-
-void() Wiz_FastFire=
+void() Wiz_FastFire =
 {
 	local vector		vec;
 	local vector		dst;
@@ -219,7 +213,7 @@ void() Wiz_FastFire=
 };
 
 
-void() Wiz_StartFast=
+void() Wiz_StartFast =
 {
 	local	entity	missile;
 	
@@ -250,7 +244,7 @@ void() Wiz_StartFast=
 
 
 
-void() Wiz_idlesound=
+void() Wiz_idlesound =
 {
 local float wr;
 	wr = random() * 5;
@@ -266,69 +260,69 @@ local float wr;
 	return;
 };
 
-void() wiz_stand1=[	$hover1,		wiz_stand2	] {ai_stand();};
-void() wiz_stand2=[	$hover2,		wiz_stand3	] {ai_stand();};
-void() wiz_stand3=[	$hover3,		wiz_stand4	] {ai_stand();};
-void() wiz_stand4=[	$hover4,		wiz_stand5	] {ai_stand();};
-void() wiz_stand5=[	$hover5,		wiz_stand6	] {ai_stand();};
-void() wiz_stand6=[	$hover6,		wiz_stand7	] {ai_stand();};
-void() wiz_stand7=[	$hover7,		wiz_stand8	] {ai_stand();};
-void() wiz_stand8=[	$hover8,		wiz_stand1	] {ai_stand();};
+void()	wiz_stand1	=[	$hover1,		wiz_stand2	] {ai_stand();};
+void()	wiz_stand2	=[	$hover2,		wiz_stand3	] {ai_stand();};
+void()	wiz_stand3	=[	$hover3,		wiz_stand4	] {ai_stand();};
+void()	wiz_stand4	=[	$hover4,		wiz_stand5	] {ai_stand();};
+void()	wiz_stand5	=[	$hover5,		wiz_stand6	] {ai_stand();};
+void()	wiz_stand6	=[	$hover6,		wiz_stand7	] {ai_stand();};
+void()	wiz_stand7	=[	$hover7,		wiz_stand8	] {ai_stand();};
+void()	wiz_stand8	=[	$hover8,		wiz_stand1	] {ai_stand();};
 
-void() wiz_walk1=[	$hover1,		wiz_walk2	] {ai_walk(8);
+void()	wiz_walk1	=[	$hover1,		wiz_walk2	] {ai_walk(8);
 Wiz_idlesound();};
-void() wiz_walk2=[	$hover2,		wiz_walk3	] {ai_walk(8);};
-void() wiz_walk3=[	$hover3,		wiz_walk4	] {ai_walk(8);};
-void() wiz_walk4=[	$hover4,		wiz_walk5	] {ai_walk(8);};
-void() wiz_walk5=[	$hover5,		wiz_walk6	] {ai_walk(8);};
-void() wiz_walk6=[	$hover6,		wiz_walk7	] {ai_walk(8);};
-void() wiz_walk7=[	$hover7,		wiz_walk8	] {ai_walk(8);};
-void() wiz_walk8=[	$hover8,		wiz_walk1	] {ai_walk(8);};
+void()	wiz_walk2	=[	$hover2,		wiz_walk3	] {ai_walk(8);};
+void()	wiz_walk3	=[	$hover3,		wiz_walk4	] {ai_walk(8);};
+void()	wiz_walk4	=[	$hover4,		wiz_walk5	] {ai_walk(8);};
+void()	wiz_walk5	=[	$hover5,		wiz_walk6	] {ai_walk(8);};
+void()	wiz_walk6	=[	$hover6,		wiz_walk7	] {ai_walk(8);};
+void()	wiz_walk7	=[	$hover7,		wiz_walk8	] {ai_walk(8);};
+void()	wiz_walk8	=[	$hover8,		wiz_walk1	] {ai_walk(8);};
 
-void() wiz_side1=[	$hover1,		wiz_side2	] {ai_run(8);
+void()	wiz_side1	=[	$hover1,		wiz_side2	] {ai_run(8);
 Wiz_idlesound();};
-void() wiz_side2=[	$hover2,		wiz_side3	] {ai_run(8);};
-void() wiz_side3=[	$hover3,		wiz_side4	] {ai_run(8);};
-void() wiz_side4=[	$hover4,		wiz_side5	] {ai_run(8);};
-void() wiz_side5=[	$hover5,		wiz_side6	] {ai_run(8);};
-void() wiz_side6=[	$hover6,		wiz_side7	] {ai_run(8);};
-void() wiz_side7=[	$hover7,		wiz_side8	] {ai_run(8);};
-void() wiz_side8=[	$hover8,		wiz_side1	] {ai_run(8);};
+void()	wiz_side2	=[	$hover2,		wiz_side3	] {ai_run(8);};
+void()	wiz_side3	=[	$hover3,		wiz_side4	] {ai_run(8);};
+void()	wiz_side4	=[	$hover4,		wiz_side5	] {ai_run(8);};
+void()	wiz_side5	=[	$hover5,		wiz_side6	] {ai_run(8);};
+void()	wiz_side6	=[	$hover6,		wiz_side7	] {ai_run(8);};
+void()	wiz_side7	=[	$hover7,		wiz_side8	] {ai_run(8);};
+void()	wiz_side8	=[	$hover8,		wiz_side1	] {ai_run(8);};
 
-void() wiz_run1=[	$fly1,		wiz_run2	] {ai_run(16);
+void()	wiz_run1	=[	$fly1,		wiz_run2	] {ai_run(16);
 Wiz_idlesound();
 };
-void() wiz_run2=[	$fly2,		wiz_run3	] {ai_run(16);};
-void() wiz_run3=[	$fly3,		wiz_run4	] {ai_run(16);};
-void() wiz_run4=[	$fly4,		wiz_run5	] {ai_run(16);};
-void() wiz_run5=[	$fly5,		wiz_run6	] {ai_run(16);};
-void() wiz_run6=[	$fly6,		wiz_run7	] {ai_run(16);};
-void() wiz_run7=[	$fly7,		wiz_run8	] {ai_run(16);};
-void() wiz_run8=[	$fly8,		wiz_run9	] {ai_run(16);};
-void() wiz_run9=[	$fly9,		wiz_run10	] {ai_run(16);};
-void() wiz_run10=[	$fly10,		wiz_run11	] {ai_run(16);};
-void() wiz_run11=[	$fly11,		wiz_run12	] {ai_run(16);};
-void() wiz_run12=[	$fly12,		wiz_run13	] {ai_run(16);};
-void() wiz_run13=[	$fly13,		wiz_run14	] {ai_run(16);};
-void() wiz_run14=[	$fly14,		wiz_run1	] {ai_run(16);};
+void()	wiz_run2	=[	$fly2,		wiz_run3	] {ai_run(16);};
+void()	wiz_run3	=[	$fly3,		wiz_run4	] {ai_run(16);};
+void()	wiz_run4	=[	$fly4,		wiz_run5	] {ai_run(16);};
+void()	wiz_run5	=[	$fly5,		wiz_run6	] {ai_run(16);};
+void()	wiz_run6	=[	$fly6,		wiz_run7	] {ai_run(16);};
+void()	wiz_run7	=[	$fly7,		wiz_run8	] {ai_run(16);};
+void()	wiz_run8	=[	$fly8,		wiz_run9	] {ai_run(16);};
+void()	wiz_run9	=[	$fly9,		wiz_run10	] {ai_run(16);};
+void()	wiz_run10	=[	$fly10,		wiz_run11	] {ai_run(16);};
+void()	wiz_run11	=[	$fly11,		wiz_run12	] {ai_run(16);};
+void()	wiz_run12	=[	$fly12,		wiz_run13	] {ai_run(16);};
+void()	wiz_run13	=[	$fly13,		wiz_run14	] {ai_run(16);};
+void()	wiz_run14	=[	$fly14,		wiz_run1	] {ai_run(16);};
 
-void() wiz_fast1=[	$magatt1,		wiz_fast2	] {ai_face();Wiz_StartFast();};
-void() wiz_fast2=[	$magatt2,		wiz_fast3	] {ai_face();};
-void() wiz_fast3=[	$magatt3,		wiz_fast4	] {ai_face();};
-void() wiz_fast4=[	$magatt4,		wiz_fast5	] {ai_face();};
-void() wiz_fast5=[	$magatt5,		wiz_fast6	] {ai_face();};
-void() wiz_fast6=[	$magatt6,		wiz_fast7	] {ai_face();};
-void() wiz_fast7=[	$magatt5,		wiz_fast8	] {ai_face();};
-void() wiz_fast8=[	$magatt4,		wiz_fast9	] {ai_face();};
-void() wiz_fast9=[	$magatt3,		wiz_fast10	] {ai_face();};
-void() wiz_fast10=[	$magatt2,		wiz_run1	] {ai_face();SUB_AttackFinished(2);WizardAttackFinished ();};
+void()	wiz_fast1	=[	$magatt1,		wiz_fast2	] {ai_face();Wiz_StartFast();};
+void()	wiz_fast2	=[	$magatt2,		wiz_fast3	] {ai_face();};
+void()	wiz_fast3	=[	$magatt3,		wiz_fast4	] {ai_face();};
+void()	wiz_fast4	=[	$magatt4,		wiz_fast5	] {ai_face();};
+void()	wiz_fast5	=[	$magatt5,		wiz_fast6	] {ai_face();};
+void()	wiz_fast6	=[	$magatt6,		wiz_fast7	] {ai_face();};
+void()	wiz_fast7	=[	$magatt5,		wiz_fast8	] {ai_face();};
+void()	wiz_fast8	=[	$magatt4,		wiz_fast9	] {ai_face();};
+void()	wiz_fast9	=[	$magatt3,		wiz_fast10	] {ai_face();};
+void()	wiz_fast10	=[	$magatt2,		wiz_run1	] {ai_face();SUB_AttackFinished(2);WizardAttackFinished ();};
 
-void() wiz_pain1=[	$pain1,		wiz_pain2	] {};
-void() wiz_pain2=[	$pain2,		wiz_pain3	] {};
-void() wiz_pain3=[	$pain3,		wiz_pain4	] {};
-void() wiz_pain4=[	$pain4,		wiz_run1	] {};
+void()	wiz_pain1	=[	$pain1,		wiz_pain2	] {};
+void()	wiz_pain2	=[	$pain2,		wiz_pain3	] {};
+void()	wiz_pain3	=[	$pain3,		wiz_pain4	] {};
+void()	wiz_pain4	=[	$pain4,		wiz_run1	] {};
 
-void() wiz_death1=[	$death1,		wiz_death2	] {
+void()	wiz_death1	=[	$death1,		wiz_death2	] {
 
 self.velocity_x = -200 + 400*random();
 self.velocity_y = -200 + 400*random();
@@ -336,15 +330,15 @@ self.velocity_z = 100 + 100*random();
 self.flags = self.flags - (self.flags & FL_ONGROUND);
 sound (self, CHAN_VOICE, "wizard/wdeath.wav", 1, ATTN_NORM);
 };
-void() wiz_death2=[	$death2,		wiz_death3	] {};
-void() wiz_death3=[	$death3,		wiz_death4	]{self.solid = SOLID_NOT;};
-void() wiz_death4=[	$death4,		wiz_death5	] {};
-void() wiz_death5=[	$death5,		wiz_death6	] {};
-void() wiz_death6=[	$death6,		wiz_death7	] {};
-void() wiz_death7=[	$death7,		wiz_death8	] {};
-void() wiz_death8=[	$death8,		wiz_death8	] {};
+void()	wiz_death2	=[	$death2,		wiz_death3	] {};
+void()	wiz_death3	=[	$death3,		wiz_death4	]{self.solid = SOLID_NOT;};
+void()	wiz_death4	=[	$death4,		wiz_death5	] {};
+void()	wiz_death5	=[	$death5,		wiz_death6	] {};
+void()	wiz_death6	=[	$death6,		wiz_death7	] {};
+void()	wiz_death7	=[	$death7,		wiz_death8	] {};
+void()	wiz_death8	=[	$death8,		wiz_death8	] {};
 
-void() wiz_die=
+void() wiz_die =
 {
 // check for gib
 	if (self.health < -40)
@@ -361,7 +355,7 @@ void() wiz_die=
 };
 
 
-void(entity attacker, float damage) Wiz_Pain=
+void(entity attacker, float damage) Wiz_Pain =
 {
 	sound (self, CHAN_VOICE, "wizard/wpain.wav", 1, ATTN_NORM);
 	if (random()*70 > damage)
@@ -371,15 +365,14 @@ void(entity attacker, float damage) Wiz_Pain=
 };
 
 
-void() Wiz_Missile=
+void() Wiz_Missile =
 {
 	wiz_fast1();
 };
 
 /*QUAKED monster_wizard (1 0 0) (-16 -16 -24) (16 16 40) Ambush
 */
-
-void() monster_wizard=
+void() monster_wizard =
 {
 	if (deathmatch)
 	{

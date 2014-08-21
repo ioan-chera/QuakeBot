@@ -1,6 +1,5 @@
 /* ALL MONSTERS SHOULD BE 1 0 0 IN COLOR */
 
-
 // name =[framenum,	nexttime, nextthink] {code}
 // expands to:
 // name ()
@@ -8,7 +7,7 @@
 //		self.frame=framenum;
 //		self.nextthink = time + nexttime;
 //		self.think = nextthink
-//		
+//		<code>
 // };
 
 
@@ -19,8 +18,7 @@ monster_use
 Using a monster makes it angry at the current activator
 ================
 */
-
-void() monster_use=
+void() monster_use =
 {
 	if (self.enemy)
 		return;
@@ -48,8 +46,7 @@ When a mosnter dies, it fires all of its targets with the current
 enemy as activator.
 ================
 */
-
-void() monster_death_use=
+void() monster_death_use =
 {
 	local entity 	ent, otemp, stemp;
 
@@ -69,13 +66,13 @@ void() monster_death_use=
 
 //============================================================================
 
-void() walkmonster_start_go=
+void() walkmonster_start_go =
 {
 local string	stemp;
 local entity	etemp;
 
 	self.origin_z = self.origin_z + 1;	// raise off floor a bit
-	droptofloor(1,1);
+	droptofloor();
 	
 	if (!walkmove(0,0))
 	{
@@ -122,7 +119,7 @@ local entity	etemp;
 };
 
 
-void() walkmonster_start=
+void() walkmonster_start =
 {
 // delay drop to floor to make sure all doors have been spawned
 // spread think times so they don't all happen at same time
@@ -133,7 +130,7 @@ void() walkmonster_start=
 
 
 
-void() flymonster_start_go=
+void() flymonster_start_go =
 {
 	self.takedamage = DAMAGE_AIM;
 
@@ -176,7 +173,7 @@ void() flymonster_start_go=
 	}
 };
 
-void() flymonster_start=
+void() flymonster_start =
 {
 // spread think times so they don't all happen at same time
 	self.nextthink = self.nextthink + random()*0.5;
@@ -185,7 +182,7 @@ void() flymonster_start=
 };
 
 
-void() swimmonster_start_go=
+void() swimmonster_start_go =
 {
 	if (deathmatch)
 	{
@@ -194,7 +191,7 @@ void() swimmonster_start_go=
 	}
 
 	self.takedamage = DAMAGE_AIM;
-	total_monsters = total_monsters + 1;
+//	total_monsters = total_monsters + 1;
 
 	self.ideal_yaw = self.angles * '0 1 0';
 	if (!self.yaw_speed)
@@ -228,7 +225,7 @@ void() swimmonster_start_go=
 	self.nextthink = self.nextthink + random()*0.5;
 };
 
-void() swimmonster_start=
+void() swimmonster_start =
 {
 // spread think times so they don't all happen at same time
 	self.nextthink = self.nextthink + random()*0.5;

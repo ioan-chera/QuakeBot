@@ -1,6 +1,5 @@
 /*
 */
-
 void (entity targ, entity inflictor, entity attacker, float damage) T_Damage;
 void () player_run;
 void(entity bomb, entity attacker, float rad, entity ignore) T_RadiusDamage;
@@ -9,7 +8,7 @@ void() SuperDamageSound;
 
 
 // called by worldspawn
-void() W_Precache=
+void() W_Precache =
 {
 	precache_sound ("weapons/r_exp3.wav");	// new rocket explosion
 	precache_sound ("weapons/rocket1i.wav");	// spike gun
@@ -25,7 +24,7 @@ void() W_Precache=
 	precache_sound ("weapons/shotgn2.wav");	// super shotgun
 };
 
-float() crandom=
+float() crandom =
 {
 	return 2*(random() - 0.5);
 };
@@ -35,12 +34,12 @@ float() crandom=
 W_FireAxe
 ================
 */
-
-void() W_FireAxe=
+void() W_FireAxe =
 {
 	local	vector	source;
 	local	vector	org;
 
+	makevectors (self.v_angle);
 	source = self.origin + '0 0 16';
 	traceline (source, source + v_forward*64, FALSE, self);
 	if (trace_fraction == 1.0)
@@ -69,7 +68,7 @@ void() W_FireAxe=
 //============================================================================
 
 
-vector() wall_velocity=
+vector() wall_velocity =
 {
 	local vector	vel;
 	
@@ -87,11 +86,10 @@ vector() wall_velocity=
 SpawnMeatSpray
 ================
 */
-
-void(vector org, vector vel) SpawnMeatSpray=
+void(vector org, vector vel) SpawnMeatSpray =
 {
 	local	entity missile, mpuff;
-	local	vector	org;
+//	local	vector	org;
 
 	missile = spawn ();
 	missile.owner = self;
@@ -119,8 +117,7 @@ void(vector org, vector vel) SpawnMeatSpray=
 SpawnBlood
 ================
 */
-
-void(vector org, vector vel, float damage) SpawnBlood=
+void(vector org, vector vel, float damage) SpawnBlood =
 {
 	particle (org, vel*0.1, 73, damage*2);
 };
@@ -130,14 +127,11 @@ void(vector org, vector vel, float damage) SpawnBlood=
 spawn_touchblood
 ================
 */
-
-void(float damage) spawn_touchblood=
+void(float damage) spawn_touchblood =
 {
 	local vector	vel;
 
-	local vector wallvel;
-	wallvel = wall_velocity();
-	vel = wallvel * 0.2;
+	vel = wall_velocity () * 0.2;
 	SpawnBlood (self.origin + vel*0.01, vel, damage);
 };
 
@@ -147,8 +141,7 @@ void(float damage) spawn_touchblood=
 SpawnChunk
 ================
 */
-
-void(vector org, vector vel) SpawnChunk=
+void(vector org, vector vel) SpawnChunk =
 {
 	particle (org, vel*0.02, 0, 10);
 };
@@ -163,24 +156,23 @@ Collects multiple small damages into a single damage
 ==============================================================================
 */
 
+entity	multi_ent;
+float	multi_damage;
 
-entity multi_ent;
-float multi_damage;
-
-void() ClearMultiDamage=
+void() ClearMultiDamage =
 {
 	multi_ent = world;
 	multi_damage = 0;
 };
 
-void() ApplyMultiDamage=
+void() ApplyMultiDamage =
 {
 	if (!multi_ent)
 		return;
 	T_Damage (multi_ent, self, self, multi_damage);
 };
 
-void(entity hit, float damage) AddMultiDamage=
+void(entity hit, float damage) AddMultiDamage =
 {
 	if (!hit)
 		return;
@@ -203,14 +195,12 @@ BULLETS
 ==============================================================================
 */
 
-
 /*
 ================
 TraceAttack
 ================
 */
-
-void(float damage, vector dir) TraceAttack=
+void(float damage, vector dir) TraceAttack =
 {
 	local	vector	vel, org;
 	
@@ -243,8 +233,7 @@ Used by shotgun, super shotgun, and enemy soldier firing
 Go to the trouble of combining multiple pellets into a single damage call.
 ================
 */
-
-void(float shotcount, vector dir, vector spread) FireBullets=
+void(float shotcount, vector dir, vector spread) FireBullets =
 {
 	local	vector direction;
 	local	vector	src;
@@ -273,8 +262,7 @@ void(float shotcount, vector dir, vector spread) FireBullets=
 W_FireShotgun
 ================
 */
-
-void() W_FireShotgun=
+void() W_FireShotgun =
 {
 	local vector dir;
 
@@ -293,8 +281,7 @@ void() W_FireShotgun=
 W_FireSuperShotgun
 ================
 */
-
-void() W_FireSuperShotgun=
+void() W_FireSuperShotgun =
 {
 	local vector dir;
 
@@ -322,15 +309,14 @@ ROCKETS
 ==============================================================================
 */
 
+void()	s_explode1	=	[0,		s_explode2] {};
+void()	s_explode2	=	[1,		s_explode3] {};
+void()	s_explode3	=	[2,		s_explode4] {};
+void()	s_explode4	=	[3,		s_explode5] {};
+void()	s_explode5	=	[4,		s_explode6] {};
+void()	s_explode6	=	[5,		SUB_Remove] {};
 
-void() s_explode1=	[0,		s_explode2] {};
-void() s_explode2=	[1,		s_explode3] {};
-void() s_explode3=	[2,		s_explode4] {};
-void() s_explode4=	[3,		s_explode5] {};
-void() s_explode5=	[4,		s_explode6] {};
-void() s_explode6=	[5,		SUB_Remove] {};
-
-void() BecomeExplosion=
+void() BecomeExplosion =
 {
 	self.movetype = MOVETYPE_NONE;
 	self.velocity = '0 0 0';
@@ -340,7 +326,7 @@ void() BecomeExplosion=
 	s_explode1 ();
 };
 
-void() T_MissileTouch=
+void() T_MissileTouch =
 {
 	local float	damg;
 
@@ -367,9 +353,7 @@ void() T_MissileTouch=
 	T_RadiusDamage (self, self.owner, 120, other);
 
 //	sound (self, CHAN_WEAPON, "weapons/r_exp3.wav", 1, ATTN_NORM);
-	local vector norvel;
-	norvel = normalize(self.velocity);
-	self.origin = self.origin - 8*norvel;
+	self.origin = self.origin - 8*normalize(self.velocity);
 
 	WriteByte (MSG_BROADCAST, SVC_TEMPENTITY);
 	WriteByte (MSG_BROADCAST, TE_EXPLOSION);
@@ -387,8 +371,7 @@ void() T_MissileTouch=
 W_FireRocket
 ================
 */
-
-void() W_FireRocket=
+void() W_FireRocket =
 {
 	local	entity missile, mpuff;
 	
@@ -402,6 +385,7 @@ void() W_FireRocket=
 	missile.owner = self;
 	missile.movetype = MOVETYPE_FLYMISSILE;
 	missile.solid = SOLID_BBOX;
+	missile.classname = "missile";
 		
 // set missile speed	
 
@@ -429,14 +413,12 @@ LIGHTNING
 ===============================================================================
 */
 
-
 /*
 =================
 LightningDamage
 =================
 */
-
-void(vector p1, vector p2, entity from, float damage) LightningDamage=
+void(vector p1, vector p2, entity from, float damage) LightningDamage =
 {
 	local entity		e1, e2;
 	local vector		f;
@@ -480,9 +462,10 @@ void(vector p1, vector p2, entity from, float damage) LightningDamage=
 };
 
 
-void() W_FireLightning=
+void() W_FireLightning =
 {
 	local	vector		org;
+	local	float		cells;
 
 	if (self.ammo_cells < 1)
 	{
@@ -494,9 +477,10 @@ void() W_FireLightning=
 // explode if under water
 	if (self.waterlevel > 1)
 	{
-		T_RadiusDamage (self, self, 35*self.ammo_cells, world);
+		cells = self.ammo_cells;
 		self.ammo_cells = 0;
 		W_SetCurrentAmmo ();
+		T_RadiusDamage (self, self, 35*cells, world);
 		return;
 	}
 
@@ -530,7 +514,7 @@ void() W_FireLightning=
 //=============================================================================
 
 
-void() GrenadeExplode=
+void() GrenadeExplode =
 {
 	T_RadiusDamage (self, self.owner, 120, world);
 
@@ -543,7 +527,7 @@ void() GrenadeExplode=
 	BecomeExplosion ();
 };
 
-void() GrenadeTouch=
+void() GrenadeTouch =
 {
 	if (other == self.owner)
 		return;		// don't explode on owner
@@ -562,8 +546,7 @@ void() GrenadeTouch=
 W_FireGrenade
 ================
 */
-
-void() W_FireGrenade=
+void() W_FireGrenade =
 {
 	local	entity missile, mpuff;
 	
@@ -621,8 +604,7 @@ launch_spike
 Used for both the player and the ogre
 ===============
 */
-
-void(vector org, vector dir) launch_spike=
+void(vector org, vector dir) launch_spike =
 {
 	newmis = spawn ();
 	newmis.owner = self;
@@ -642,7 +624,7 @@ void(vector org, vector dir) launch_spike=
 	newmis.velocity = dir * 1000;
 };
 
-void() W_FireSuperSpikes=
+void() W_FireSuperSpikes =
 {
 	local vector	dir;
 	local entity	old;
@@ -658,7 +640,7 @@ void() W_FireSuperSpikes=
 	self.punchangle_x = -2;
 };
 
-void(float ox) W_FireSpikes=
+void(float ox) W_FireSpikes =
 {
 	local vector	dir;
 	local entity	old;
@@ -690,7 +672,7 @@ void(float ox) W_FireSpikes=
 
 
 .float hit_z;
-void() spike_touch=
+void() spike_touch =
 {
 local float rand;
 	if (other == self.owner)
@@ -730,7 +712,7 @@ local float rand;
 
 };
 
-void() superspike_touch=
+void() superspike_touch =
 {
 local float rand;
 	if (other == self.owner)
@@ -773,8 +755,7 @@ PLAYER WEAPON USE
 ===============================================================================
 */
 
-
-void() W_SetCurrentAmmo=
+void() W_SetCurrentAmmo =
 {
 	player_run ();		// get out of any weapon firing states
 
@@ -843,36 +824,26 @@ void() W_SetCurrentAmmo=
 	}
 };
 
-float() W_BestWeapon=
+float() W_BestWeapon =
 {
 	local	float	it;
 	
 	it = self.items;
 
-	if(self.ammo_cells >= 1 && (it & IT_LIGHTNING) )
-		return IT_LIGHTNING;
-	else if(self.ammo_nails >= 2 && (it & IT_SUPER_NAILGUN) )
+	if (self.waterlevel <= 1 && self.ammo_cells >= 1 && (it & IT_LIGHTNING) )
+			return IT_LIGHTNING;
+	if(self.ammo_nails >= 2 && (it & IT_SUPER_NAILGUN) )
 		return IT_SUPER_NAILGUN;
-	else if(self.ammo_shells >= 2 && (it & IT_SUPER_SHOTGUN) )
+	if(self.ammo_shells >= 2 && (it & IT_SUPER_SHOTGUN) )
 		return IT_SUPER_SHOTGUN;
-	else if(self.ammo_nails >= 1 && (it & IT_NAILGUN) )
+	if(self.ammo_nails >= 1 && (it & IT_NAILGUN) )
 		return IT_NAILGUN;
-	else if(self.ammo_shells >= 1 && (it & IT_SHOTGUN) )
+	if(self.ammo_shells >= 1 && (it & IT_SHOTGUN) )
 		return IT_SHOTGUN;
-		
-/*
-	if(self.ammo_rockets >= 1 && (it & IT_ROCKET_LAUNCHER) )
-		return IT_ROCKET_LAUNCHER;
-	else if(self.ammo_rockets >= 1 && (it & IT_GRENADE_LAUNCHER) )
-		return IT_GRENADE_LAUNCHER;
-
-*/
-
-
 	return IT_AXE;
 };
 
-float() W_CheckNoAmmo=
+float() W_CheckNoAmmo =
 {
 	if (self.currentammo > 0)
 		return TRUE;
@@ -895,17 +866,16 @@ W_Attack
 An attack impulse can be triggered now
 ============
 */
+void()	player_axe1;
+void()	player_axeb1;
+void()	player_axec1;
+void()	player_axed1;
+void()	player_shot1;
+void()	player_nail1;
+void()	player_light1;
+void()	player_rocket1;
 
-void() player_axe1;
-void() player_axeb1;
-void() player_axec1;
-void() player_axed1;
-void() player_shot1;
-void() player_nail1;
-void() player_light1;
-void() player_rocket1;
-
-void() W_Attack=
+void() W_Attack =
 {
 	local	float	r;
 
@@ -975,8 +945,7 @@ W_ChangeWeapon
 
 ============
 */
-
-void() W_ChangeWeapon=
+void() W_ChangeWeapon =
 {
 	local	float	it, am, fl;
 	
@@ -1056,10 +1025,9 @@ void() W_ChangeWeapon=
 CheatCommand
 ============
 */
-
-void() CheatCommand=
+void() CheatCommand =
 {
-	if (deathmatch || coop)
+	if (deathmatch)
 		return;
 
 	self.ammo_rockets = 100;
@@ -1090,8 +1058,7 @@ CycleWeaponCommand
 Go to the next weapon with ammo
 ============
 */
-
-void() CycleWeaponCommand=
+void() CycleWeaponCommand =
 {
 	local	float	it, am;
 	
@@ -1149,7 +1116,81 @@ void() CycleWeaponCommand=
 				am = 1;
 		}
 	
-		if ( (self.items & self.weapon) && am == 0)
+		if ( (it & self.weapon) && am == 0)
+		{
+			W_SetCurrentAmmo ();
+			return;
+		}
+	}
+
+};
+
+/*
+============
+CycleWeaponReverseCommand
+
+Go to the prev weapon with ammo
+============
+*/
+void() CycleWeaponReverseCommand =
+{
+	local	float	it, am;
+	
+	it = self.items;
+	self.impulse = 0;
+
+	while (1)
+	{
+		am = 0;
+
+		if (self.weapon == IT_LIGHTNING)
+		{
+			self.weapon = IT_ROCKET_LAUNCHER;
+			if (self.ammo_rockets < 1)
+				am = 1;
+		}
+		else if (self.weapon == IT_ROCKET_LAUNCHER)
+		{
+			self.weapon = IT_GRENADE_LAUNCHER;
+			if (self.ammo_rockets < 1)
+				am = 1;
+		}
+		else if (self.weapon == IT_GRENADE_LAUNCHER)
+		{
+			self.weapon = IT_SUPER_NAILGUN;
+			if (self.ammo_nails < 2)
+				am = 1;
+		}
+		else if (self.weapon == IT_SUPER_NAILGUN)
+		{
+			self.weapon = IT_NAILGUN;
+			if (self.ammo_nails < 1)
+				am = 1;
+		}
+		else if (self.weapon == IT_NAILGUN)
+		{
+			self.weapon = IT_SUPER_SHOTGUN;
+			if (self.ammo_shells < 2)
+				am = 1;
+		}		
+		else if (self.weapon == IT_SUPER_SHOTGUN)
+		{
+			self.weapon = IT_SHOTGUN;
+			if (self.ammo_shells < 1)
+				am = 1;
+		}
+		else if (self.weapon == IT_SHOTGUN)
+		{
+			self.weapon = IT_AXE;
+		}
+		else if (self.weapon == IT_AXE)
+		{
+			self.weapon = IT_LIGHTNING;
+			if (self.ammo_cells < 1)
+				am = 1;
+		}
+	
+		if ( (it & self.weapon) && am == 0)
 		{
 			W_SetCurrentAmmo ();
 			return;
@@ -1165,15 +1206,16 @@ ServerflagsCommand
 Just for development
 ============
 */
-
-void() ServerflagsCommand=
+void() ServerflagsCommand =
 {
+	if (deathmatch)
+		return;
 	serverflags = serverflags * 2 + 1;
 };
 
-void() QuadCheat=
+void() QuadCheat =
 {
-	if (deathmatch || coop)
+	if (deathmatch)
 		return;
 	self.super_time = 1;
 	self.super_damage_finished = time + 30;
@@ -1187,8 +1229,7 @@ ImpulseCommands
 
 ============
 */
-
-void() ImpulseCommands=
+void() ImpulseCommands =
 {
 	if (self.impulse >= 1 && self.impulse <= 8)
 		W_ChangeWeapon ();
@@ -1199,6 +1240,8 @@ void() ImpulseCommands=
 		CycleWeaponCommand ();
 	if (self.impulse == 11)
 		ServerflagsCommand ();
+	if (self.impulse == 12)
+		CycleWeaponReverseCommand ();
 
 	if (self.impulse == 255)
 		QuadCheat ();
@@ -1213,13 +1256,13 @@ W_WeaponFrame
 Called every frame so impulse events can be handled as well as possible
 ============
 */
-
-void() W_WeaponFrame=
+void() W_WeaponFrame =
 {
 	if (time < self.attack_finished)
 		return;
 
-	ImpulseCommands ();
+	if (self.impulse)
+		ImpulseCommands ();
 	
 // check for attack
 	if (self.button0)
@@ -1236,8 +1279,7 @@ SuperDamageSound
 Plays sound if needed
 ========
 */
-
-void() SuperDamageSound=
+void() SuperDamageSound =
 {
 	if (self.super_damage_finished > time)
 	{
